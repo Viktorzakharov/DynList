@@ -20,7 +20,7 @@ namespace List
 
             for (int i = 0; i < 15; i++)
             {
-                array.Array[i] = rnd.Next(255);
+                array.array[i] = rnd.Next(255);
                 array.Count++;
             }
             return array;

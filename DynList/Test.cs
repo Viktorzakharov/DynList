@@ -7,13 +7,13 @@ namespace List
         public static void Insert(DynArray array, int i, object item)
         {
             var count = array.Count;
-            var valueI = array.Array[i];
+            var valueI = array.array[i];
 
             Write(array);
             array.Insert(i, item);
             Write(array);
 
-            if (array.Count == count + 1 && array.Array[i] == item && array.Array[i + 1] == valueI)
+            if (array.Count == count + 1 && array.array[i] == item && array.array[i + 1] == valueI)
                 Console.WriteLine("Добавление прошлео верно!\n");
             else Console.WriteLine("Добавление прошло НЕВЕРНО!\n");
         }
@@ -21,13 +21,13 @@ namespace List
         public static void Delete(DynArray array, int i)
         {
             var count = array.Count;
-            var valueNextI = array.Array[i + 1];
+            var valueNextI = array.array[i + 1];
 
             Write(array);
             array.Delete(i);
             Write(array);
 
-            if (array.Count == count - 1 && array.Array[i] == valueNextI)
+            if (array.Count == count - 1 && array.array[i] == valueNextI)
                 Console.WriteLine("Удаление прошлео верно!\n");
             else Console.WriteLine("Удаление прошло НЕВЕРНО!\n");
         }
@@ -48,7 +48,7 @@ namespace List
 
         public static void Write(DynArray array)
         {
-            foreach (var e in array.Array)
+            foreach (var e in array.array)
             {
                 if (e != null) Console.Write(e + " ");
                 else Console.Write("- ");

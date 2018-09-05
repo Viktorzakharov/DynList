@@ -6,13 +6,13 @@ namespace List
     {
         public int Count;
         public int Capacity;
-        public object[] Array;
+        public object[] array;
 
         public DynArray()
         {
             Count = 0;
             Capacity = 16;
-            Array = new object[Capacity];
+            array = new object[Capacity];
         }
 
         public void MakeArray(bool flag)
@@ -21,19 +21,15 @@ namespace List
             else Capacity = ((Capacity - 1) * 2) / 3;
 
             var newArray = new object[Capacity];
-
-            if (flag) Array.CopyTo(newArray, 0);
-            else for (int i = 0; i < newArray.Length; i++)
-                    newArray[i] = Array[i];
-
-            Array = newArray;
+            Array.Copy(array, newArray, Count);
+            array = newArray;
         }
 
         public object GetItem(int index)
         {
             try
             {
-                return Array[index];
+                return array[index];
             }
             catch (IndexOutOfRangeException)
             {
@@ -46,7 +42,7 @@ namespace List
         {
             if (Count == Capacity)
                 MakeArray(true);
-            Array[Count] = item;
+            array[Count] = item;
             Count++;
         }
 
@@ -55,8 +51,8 @@ namespace List
             if (Count == Capacity)
                 MakeArray(true);
             for (int j = Count; j > i; j--)
-                Array[j] = Array[j - 1];
-            Array[i] = item;
+                array[j] = array[j - 1];
+            array[i] = item;
             Count++;
         }
 
@@ -64,9 +60,9 @@ namespace List
         {
             var deCapacity = ((Capacity - 1) * 2) / 3;
             for (int j = i; j < Count - 1; j++)
-                Array[j] = Array[j + 1];
+                array[j] = array[j + 1];
             Count--;
-            Array[Count] = null;
+            array[Count] = null;
             if (Count == deCapacity && deCapacity >= 16)
                 MakeArray(false);
         }
