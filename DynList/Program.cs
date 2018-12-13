@@ -1,27 +1,33 @@
 ﻿using System;
 
-namespace List
+namespace AlgorithmsDataStructures
 {
     class Program
     {
         static void Main()
         {
-            var array = SetArrayValues(new DynArray());
-
-            Test.Append(array, 999);
-            Test.Insert(array, 5, 777);
-            Test.GetItem(array, 30);
-            Test.Delete(array, 5);
+            var array = SetArrayValues(new DynArray<int>());
+            Write(array);
         }
 
-        public static DynArray SetArrayValues(DynArray array)
+        public static void Write(DynArray<int> array)
+        {
+            for (int i = 0; i < array.array.Length; i++)
+            {
+                if (i < array.count) Console.Write("{0} ", array.array[i].ToString());
+                else Console.Write("- ");
+            }
+            Console.WriteLine();
+        }
+
+        public static DynArray<int> SetArrayValues(DynArray<int> array)
         {
             var rnd = new Random();
 
             for (int i = 0; i < 15; i++)
             {
                 array.array[i] = rnd.Next(255);
-                array.Count++;
+                array.count++;
             }
             return array;
         }

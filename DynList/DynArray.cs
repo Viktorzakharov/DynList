@@ -1,70 +1,60 @@
 ﻿using System;
 
-namespace List
+namespace AlgorithmsDataStructures
 {
-    class DynArray
+    public class DynArray<T>
     {
-        public int Count;
-        public int Capacity;
-        public object[] array;
+        public T[] array;
+        public int count;
+        public int capacity;
 
         public DynArray()
         {
-            Count = 0;
-            Capacity = 16;
-            array = new object[Capacity];
+            count = 0;
+            MakeArray(16);
         }
 
-        public void MakeArray(bool flag)
+        public void MakeArray(int new_capacity)
         {
-            if (flag) Capacity = (Capacity * 3) / 2 + 1;
-            else Capacity = ((Capacity - 1) * 2) / 3;
-
-            var newArray = new object[Capacity];
-            Array.Copy(array, newArray, Count);
+            var newArray = new T[new_capacity];
+            if (array != null) Array.Copy(array, newArray, count);
             array = newArray;
+            capacity = new_capacity;
         }
 
-        public object GetItem(int index)
+        public T GetItem(int index)
         {
-            try
-            {
-                return array[index];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Индекс вышел за границы массива!");
-                return null;
-            }
+            if (index < 0 || index > count - 1) throw new IndexOutOfRangeException();
+            return array[index];
         }
 
-        public void Apeend(object item)
+        public void Apeend(T itm)
         {
-            if (Count == Capacity)
-                MakeArray(true);
-            array[Count] = item;
-            Count++;
+            if (count == capacity) MakeArray(capacity * 2);
+            array[count] = itm;
+            count++;
         }
 
-        public void Insert(int i, object item)
+        public void Insert(T itm, int index)
         {
-            if (Count == Capacity)
-                MakeArray(true);
-            for (int j = Count; j > i; j--)
-                array[j] = array[j - 1];
-            array[i] = item;
-            Count++;
+            if (index < 0 || index > count) throw new IndexOutOfRangeException();
+            if (count == capacity) MakeArray(capacity * 2);
+            for (int i = count; i > index; i--)
+                array[i] = array[i - 1];
+            array[index] = itm;
+            count++;
         }
 
-        public void Delete(int i)
+        public void Remove(int index)
         {
-            var deCapacity = ((Capacity - 1) * 2) / 3;
-            for (int j = i; j < Count - 1; j++)
-                array[j] = array[j + 1];
-            Count--;
-            array[Count] = null;
-            if (Count == deCapacity && deCapacity >= 16)
-                MakeArray(false);
+            if (index < 0 || index > count - 1) throw new IndexOutOfRangeException();
+            for (int i = index; i < count - 1; i++)
+                array[i] = array[i + 1];
+            count--;
+            array[count] = default(T);
+
+            if (count < capacity / 2 && (int)(capacity / 1.5) >= 16)
+                MakeArray((int)(capacity / 1.5));
         }
     }
 }
