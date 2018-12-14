@@ -53,8 +53,11 @@ namespace AlgorithmsDataStructures
             count--;
             array[count] = default(T);
 
-            if (count < capacity / 2 && (int)(capacity / 1.5) >= 16)
-                MakeArray((int)(capacity / 1.5));
+            if (count < (double)capacity / 2)
+            {
+                if ((int)(capacity / 1.5) < 16 && capacity > 16) MakeArray(16);
+                else if (capacity != 16) MakeArray((int)(capacity / 1.5));
+            }
         }
     }
 }

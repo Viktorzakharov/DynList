@@ -6,7 +6,7 @@ namespace AlgorithmsDataStructures
     {
         static void Main()
         {
-            var array = SetArrayValues(new DynArray<int>());
+            var array = SetArrayValues(new DynArray<int>(), 16);
             Write(array);
         }
 
@@ -20,11 +20,11 @@ namespace AlgorithmsDataStructures
             Console.WriteLine();
         }
 
-        public static DynArray<int> SetArrayValues(DynArray<int> array)
+        public static DynArray<int> SetArrayValues(DynArray<int> array, int count)
         {
             var rnd = new Random();
 
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < count; i++)
             {
                 array.array[i] = rnd.Next(255);
                 array.count++;
